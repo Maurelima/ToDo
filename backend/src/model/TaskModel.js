@@ -3,7 +3,7 @@ const mongoose = require('../config/database');
 const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
-    macaddress: {type: String, required = true},
+    macaddress: {type: String, required: true},
     type: {type: Number, required: true},
     title: {type: String, required: true},
     description: {type: String, required: true},
@@ -12,4 +12,4 @@ const TaskSchema = new Schema({
     created: {type: Date, default: Date.now()}
 });
 
-module.exports = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model('Task', TaskSchema); 
