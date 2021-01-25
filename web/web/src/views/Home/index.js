@@ -1,4 +1,5 @@
 import React, { useState , useEffect} from 'react';
+import { Link } from 'react-router-dom'
 import * as S from './styles';
 
 import api from '../../services/api';
@@ -17,44 +18,50 @@ function Home() {
     await api.get(`/task/filter/${filterActived}/11:11:11:11:11:11`)
     .then(response => {
       setTasks(response.data);
-      console.log(response.data);
     })
   }
 
+
+  function Notification(){
+    setFilterActived('late')
+  }
+
   useEffect(()=>{
-    loadTasks();    
+    loadTasks();     
   }, [filterActived])
 
   return (
     <S.Container>
-      <Header />
+      <Header clickNotification={Notification}/>
 
       <S.FilterArea>
         <button type="button" style={{outline: 'none'}} onClick={()=>setFilterActived("all")}>
-          <FilterCard title="Todos" actived={filterActived == 'all'} />
+          <FilterCard title="Todos" actived={filterActived === 'all'} />
         </button>
         <button type="button" style={{outline: 'none'}} onClick={()=>setFilterActived("today")}>
-          <FilterCard title="Hoje" actived={filterActived == 'today'} />
+          <FilterCard title="Hoje" actived={filterActived === 'today'} />
         </button> 
         <button type="button" style={{outline: 'none'}} onClick={()=>setFilterActived("week")}>
-          <FilterCard title="Semana" actived={filterActived == 'week'} />
+          <FilterCard title="Semana" actived={filterActived === 'week'} />
         </button>         
         <button type="button" style={{outline: 'none'}} onClick={()=>setFilterActived("month")}>
-          <FilterCard title="Mês" actived={filterActived == 'month'} />
+          <FilterCard title="Mês" actived={filterActived === 'month'} />
         </button>
         <button type="button" style={{outline: 'none'}} onClick={()=>setFilterActived("year")}>
-          <FilterCard title="Ano" actived={filterActived == 'year'} />
+          <FilterCard title="Ano" actived={filterActived === 'year'} />
         </button>
       </S.FilterArea>
 
       <S.Title>
-        <h3>TAREFAS</h3>
+        <h3>{filterActived === 'late' ? 'TAREFAS ATRASADAS' : 'TAREFAS'}</h3>
       </S.Title>
 
       <S.Content>
         {
           tasks.map(t => (
-          <TaskCard type={t.type} title={t.title} when={t.when}/>
+            <Link to={`/task/${t._id}`}>
+             <TaskCard type={t.type} title={t.title} when={t.when} done={t.done} />
+            </Link>
           ))
         }
       </S.Content>

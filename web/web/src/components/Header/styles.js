@@ -6,7 +6,7 @@ export const Container = styled.div`
     background: #20295F;
     border-bottom: 5px solid #EE6B26;
 
-    display:flex;
+    display:flex; 
 `
 
 export const LeftSite = styled.div`
@@ -30,11 +30,18 @@ export const RightSide = styled.div`
     justify-content: flex-end;
     padding-right: 10px;
 
-    a{
+    button{
+        background: none;
+        boder:none;
+        cursor:pointer;
+    }
+
+    a, button{
         color: #FFF;
         font-weight: bold;
         text-decoration: none;
-        margin: 0 10px;
+        margin: 0 10px;        
+        border:none;
 
         &:hover{
             color: #EE6B26;
